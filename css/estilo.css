@@ -1,0 +1,644 @@
+/* ==========================================================================
+   1. RESET GERAL E CONFIGURAÇÕES DE FUNDO (TELAS ESCURAS)
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.login-body, 
+.recuperar-body,
+.menu-body {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* ==========================================================================
+   2. CARDS DE FORMULÁRIO E MENU
+   ========================================================================== */
+
+.recuperar-card,
+.menu-card {
+    background-color: #c9c9c996;
+    width: 100%;
+    max-width: 400px;
+    padding: 35px 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    border: 3px solid rgb(0, 74, 134);
+    overflow: hidden; 
+}
+
+.login-card{
+    background-color: #f5f5f596;
+    width: 100%;
+    max-width: 400px;
+    padding: 35px 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    border: 3px solid rgb(0, 74, 134);
+    overflow: hidden; 
+}
+
+/* TÍTULO DA TELA DE MENU */
+.menu-titulo {
+    background-color: #ffffff; 
+    color: #1e293b;
+    font-size: 26px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    display: block;
+    width: auto;
+    margin: -35px -30px 25px -30px; 
+    padding: 16px 0; 
+    border: none;
+    border-bottom: 2px solid rgb(74, 74, 74);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+/* TÍTULO DA TELA DE LOGIN */
+.login-titulo, .recuperar-titulo {
+    background-color: #ffffff; 
+    color: #000000;
+    font-size: 26px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    display: block;
+    width: auto;
+    margin: -35px -30px 25px -30px; 
+    padding: 16px 0; 
+    border: none;
+    border-bottom: 2px solid rgb(74, 74, 74);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.login-content, .recuperar-content,
+.login-acoes, .recuperar-acoes {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* ==========================================================================
+   3. LABELS E INPUTS PADRÃO
+   ========================================================================== */
+.login-label, 
+.recuperar-label {
+    color: #313741;
+    font-size: 14px;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.login-input, 
+.recuperar-input {
+    width: 100%;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 15px;
+    color: #334155;
+    background-color: #f8fafc;
+    transition: all 0.3s ease;
+}
+
+.login-input:focus, 
+.recuperar-input:focus {
+    outline: none;
+    border-color: #2563eb;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* ==========================================================================
+   4. BOTÕES E LINKS GERAIS
+   ========================================================================== */
+.botao {
+    width: 100%;
+    padding: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    text-decoration: none;
+    margin-bottom: 12px;
+    display: inline-block;
+}
+
+.btn-auto {
+    width: auto;
+    padding: 10px 20px;
+    margin-bottom: 0;
+}
+
+.btn-entrar {
+    background-color: #14006d;
+    color: #ffffff;
+    box-shadow: 0 4px 6px -1px rgba(37, 100, 235, 0.312);
+}
+
+.btn-entrar:hover {
+    background-color: #720059;
+    transform: translateY(-1px);
+}
+
+.botao-alterar{
+    background-color: #14006d;
+    color: #ffffff;
+    box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+}
+
+.botao-alterar:hover{
+    background-color: #720059;
+    transform: translateY(-1px);
+}
+
+.btn-primario, .btn-salvar {
+    background-color: #2563eb;
+    color: #ffffff;
+    box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+}
+
+.btn-primario:hover, .btn-salvar:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-1px);
+}
+
+.botao-secundario {
+    background-color: #3d3d3d;
+    color: #ffffff;
+    border: 1px solid #e2e8f0;
+}
+
+.botao-secundario:hover {
+    background-color: #c30000;
+    color: #d6d6d6;
+}
+
+.esqueceu {
+    background-color: transparent;
+    border: none;
+    color: #2c333b;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 0;
+    margin-top: 4px;
+}
+
+.esqueceu:hover {
+    background-color: transparent;
+    color: #2563eb;
+    text-decoration: underline;
+}
+
+.btn-link {
+    background-color: transparent;
+    border: none;
+    color: #64748b;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 0;
+    margin-top: 4px;
+}
+
+.btn-link:hover {
+    background-color: transparent;
+    color: #2563eb;
+    text-decoration: underline;
+}
+
+.botao:disabled {
+    background-color: #94a3b8 !important;
+    color: #cbd5e1 !important;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* ==========================================================================
+   5. MENU E ACCORDIONS (SANFONA)
+   ========================================================================== */
+.menu-accordion {
+    margin-bottom: 15px;
+}
+
+.menu-summary {
+    list-style: none;
+    padding: 15px 20px;
+    background-color: #0000005d;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 17px;
+    color: #f8f3ff;
+    transition: all 0.2s ease;
+    border: 1px solid rgb(0, 0, 0);
+}
+
+.menu-summary::-webkit-details-marker {
+    display: none; 
+}
+
+.menu-summary:hover {
+    background-color: #0037ff5b;
+    color: #1f2d41;
+}
+
+.menu-accordion[open] .menu-summary {
+    background-color: #0037ff5b;
+    border-color: #febfbf;
+    color: #ebebeb;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: 2px solid #3b82f6;
+}
+
+.menu-submenu {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-top: none;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.menu-link {
+    padding: 10px 15px;
+    color: #475569;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.menu-link:hover {
+    background-color: #f1f5f9;
+    color: #2563eb;
+    padding-left: 20px;
+}
+
+.btn-sair {
+    margin-top: 25px;
+    margin-bottom: 0;
+    font-size: 16px;
+    background-color: #ff0000;
+    color: #ffffff;
+    border: 1px solid #fecaca;
+    border: 1px solid rgb(0, 0, 0);
+}
+
+.btn-sair:hover {
+    background-color: #800000;
+    color: #ffffff;
+    transition-duration: 500ms;
+}
+
+/* ==========================================================================
+   6. LAYOUT DAS TELAS DE CRUD (ADMINISTRAÇÃO)
+   ========================================================================== */
+.crud-body {
+    background-color: #07532dbb; 
+    padding: 30px 20px;
+    color: #334155;
+}
+
+.crud-container {
+    max-width: 1000px;
+    margin: 0 auto; 
+}
+
+.crud-titulo {
+    font-size: 28px;
+    color: #111720;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.crud-toolbar {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+/* ==========================================================================
+   7. TABELAS DE DADOS (COM BORDAS VERTICAIS COMPLETAS)
+   ========================================================================== */
+.table-container {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    overflow: hidden; 
+}
+
+.crud-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+/* --- Cabeçalho --- */
+.crud-table th {
+    background-color: #1e293b;
+    color: #ffffff;
+    padding: 15px;
+    font-weight: 600;
+    font-size: 15px;
+    border-right: 1px solid rgba(255, 255, 255, 0.15); /* Linha divisória sutil nas colunas */
+}
+
+.crud-table th:last-child {
+    border-right: none; /* Remove a linha da última coluna para não ficar dupla */
+}
+
+/* --- Corpo da Tabela --- */
+.crud-table td {
+    padding: 15px;
+    border-bottom: 1px solid #e2e8f0;
+    color: #475569;
+    font-size: 15px;
+    vertical-align: middle;
+    border-right: 1px solid #ccd1d6; /* Linha divisória cinza nas colunas */
+}
+
+.crud-table td:last-child {
+    border-right: none; /* Remove a linha da última coluna */
+}
+
+.crud-table tr:hover {
+    background-color: #f8fafc; 
+}
+
+.col-acoes {
+    width: 200px; 
+}
+
+.txt-center {
+    text-align: center;
+}
+
+.btn-editar {
+    background-color: #f5800b; 
+    color: white;
+    border: 1px solid rgb(74, 74, 74);
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    margin-right: 8px;
+    transition: 0.2s;
+}
+
+.btn-editar:hover { 
+    background-color: #f2fa0c;
+    color: #475569;
+}
+
+.btn-excluir {
+    background-color: #ef4444; 
+    color: white;
+    border: 1px solid rgb(74, 74, 74);
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    transition: 0.2s;
+}
+
+.btn-excluir:hover { background-color: #dc2626; }
+
+/* ==========================================================================
+   8. MODAIS E ÁREA DE EDIÇÃO
+   ========================================================================== */
+#modalCadastro {
+    display: none; 
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(15, 23, 42, 0.7); 
+    z-index: 1000;
+    overflow-y: auto;          
+    overscroll-behavior: contain; 
+    padding: 40px 20px;        
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: #ffffff;
+    width: 100%; 
+    max-width: 700px; 
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+    margin-bottom: 40px; 
+}
+
+.modal-titulo {
+    font-size: 22px;
+    color: #1e293b;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.crud-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #212730;
+    margin-bottom: 8px;
+}
+
+.crud-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #535353;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: all 0.3s ease;
+}
+
+.crud-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.input-readonly {
+    background-color: #eed8d8;
+    color: #272d36;
+    cursor: not-allowed;
+}
+
+.modal-acoes {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.btn-fechar {
+    background-color: #64748b;
+    color: white;
+}
+
+.btn-fechar:hover {
+    background-color: #475569;
+}
+
+.edit-card {
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    padding: 25px;
+    border-radius: 10px;
+    margin-top: 30px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.edit-card h3 {
+    color: #1e293b;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+/* ==========================================================================
+   9. UNIFICAÇÃO E ALINHAMENTO PERFEITO DOS BOTÕES "+"
+   ========================================================================== */
+
+/* 1. CORREÇÃO DA ÁREA DE EDIÇÃO (Botão .btn-add-orcamento) */
+button.btn-add-orcamento,
+.btn-add-orcamento {
+    flex: none !important;
+    width: 46px !important;     
+    height: 46px !important;    
+    padding: 0 !important;
+    margin-top: 0 !important;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    margin-bottom: 15px !important; 
+    background-color: #22c55e !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    font-weight: 600 !important;
+    font-size: 24px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.2s ease !important;
+    box-shadow: none !important;
+}
+
+button.btn-add-orcamento:hover {
+    background-color: #16a34a !important;
+    transform: translateY(-1px) !important;
+}
+
+/* 2. CORREÇÃO DO MODAL DE CADASTRO (Botão .btn-nova-cate) */
+button.btn-nova-cate,
+.btn-nova-cate,
+button[style*="background-color: #22c55e"] {
+    flex: none !important;
+    width: 46px !important;
+    height: 46px !important;
+    padding: 0 !important;
+    margin-top: 0 !important;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    margin-bottom: 15px !important; 
+    background-color: #22c55e !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    font-weight: 600 !important;
+    font-size: 24px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.2s ease !important;
+    box-shadow: none !important;
+}
+
+button.btn-nova-cate:hover,
+button[style*="background-color: #22c55e"]:hover {
+    background-color: #16a34a !important;
+    transform: translateY(-1px) !important;
+}
+
+
+/* ==========================================================================
+   BOTÃO DE IMPRIMIR E LAYOUT DE IMPRESSÃO
+   ========================================================================== */
+.btn-imprimir {
+    background-color: #0ea5e9; 
+    color: white;
+    border: 1px solid rgb(74, 74, 74);
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    margin-right: 8px;
+    transition: 0.2s;
+}
+
+.btn-imprimir:hover { 
+    background-color: #0284c7; 
+}
+
+#areaImpressao {
+    display: none;
+}
+
+@media print {
+    body > * {
+        display: none !important;
+    }
+    
+    #areaImpressao {
+        display: block !important;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: 0;
+        padding: 20px;
+        background: white;
+        color: black;
+        font-family: Arial, sans-serif;
+    }
+
+    @page {
+        margin: 10mm;
+    }
+}

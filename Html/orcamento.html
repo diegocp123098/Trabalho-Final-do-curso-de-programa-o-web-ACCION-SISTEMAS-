@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/estilo.css">
+    <title>Gerenciar Orçamentos</title>
+</head>
+<body class="crud-body">
+
+    <div class="crud-container">
+        <h2 class="crud-titulo">Orçamentos Cadastrados</h2>
+        
+        <div class="crud-toolbar" style="display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; margin-bottom: 25px; width: 100%;">
+            
+            <div class="toolbar-botoes" style="display: flex; gap: 10px; align-items: center;">
+                <button type="button" class="botao btn-primario btn-auto" onclick="abrirModal()">+ Novo Orçamento</button>
+                <a href="menu.html" class="botao botao-secundario btn-auto">Voltar ao Menu</a>
+            </div>
+
+            <div class="toolbar-pesquisa" style="display: flex; gap: 15px; flex: 1; max-width: 550px; justify-content: flex-end;">
+                
+                <div class="input-group" style="flex: 1; margin-bottom: 0 !important; min-width: 100px;">
+                    <label for="buscaId" class="crud-label" style="margin-bottom: 5px; display: block;">Código:</label>
+                    <input type="number" id="buscaId" class="crud-input" placeholder="Ex: 1" oninput="filtrarOrcamentos()" style="width: 100%;">
+                </div>
+                
+                <div class="input-group" style="flex: 2; margin-bottom: 0 !important; min-width: 220px;">
+                    <label for="buscaCliente" class="crud-label" style="margin-bottom: 5px; display: block;">Pesquisar Cliente:</label>
+                    <input type="text" id="buscaCliente" class="crud-input" placeholder="Nome do cliente..." oninput="filtrarOrcamentos()" style="width: 100%;">
+                </div>
+
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table class="crud-table">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Cliente</th>
+                        <th>Data Orçamento</th>
+                        <th>Data Validade</th>
+                        <th>Total Geral</th>
+                        <th class="col-acoes" style="width: 250px;">Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaOrcamentos">
+                    <tr>
+                        <td colspan="6" class="txt-center">Carregando orçamentos...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="areaEdicao" class="edit-card" style="display: none;">
+            <h3>Editar Orçamento nº <span id="txtOrcamentoIdEdicao"></span></h3>
+            
+            <input type="hidden" id="orcamentoId">
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div class="input-group">
+                    <label for="selectCliente" class="crud-label">Cliente:</label>
+                    <select id="selectCliente" class="crud-input"></select>
+                </div>
+                <div class="input-group">
+                    <label for="dataOrcamento" class="crud-label">Data do Orçamento:</label>
+                    <input type="date" id="dataOrcamento" class="crud-input">
+                </div>
+                <div class="input-group">
+                    <label for="dataValidade" class="crud-label">Data Validade:</label>
+                    <input type="date" id="dataValidade" class="crud-input">
+                </div>
+                <div class="input-group">
+                    <label class="crud-label">Valor Total Geral:</label>
+                    <input type="text" id="valorTotal" class="crud-input input-readonly" readonly style="font-weight: bold;">
+                </div>
+            </div>
+
+            <hr style="margin: 25px 0; border: 0; border-top: 1px solid #e2e8f0;">
+            <h3 style="margin-bottom: 15px; font-size: 18px;">Produtos Deste Orçamento</h3>
+
+            <div style="display: flex; gap: 10px; align-items: flex-end; margin-bottom: 20px;">
+                <div style="flex: 2;" class="input-group">
+                    <label for="selectProdutoEdit" class="crud-label">Produto:</label>
+                    <select id="selectProdutoEdit" class="crud-input" onchange="atualizarPrecoUnitarioEdit()"></select>
+                </div>
+                <div style="flex: 1;" class="input-group">
+                    <label for="qtdProdutoEdit" class="crud-label">Qtd:</label>
+                    <input type="number" id="qtdProdutoEdit" class="crud-input" min="1" value="1">
+                </div>
+                <div style="flex: 1;" class="input-group">
+                    <label for="vlUnitarioEdit" class="crud-label">Vl. Unitário:</label>
+                    <input type="number" id="vlUnitarioEdit" class="crud-input" step="0.01" min="0">
+                </div>
+                <button type="button" class="btn-add-orcamento" onclick="adicionarItemNaListaEdit()">+</button>
+            </div>
+
+            <div class="table-container" style="margin-bottom: 25px; box-shadow: none; border: 1px solid #e2e8f0;">
+                <table class="crud-table">
+                    <thead>
+                        <tr>
+                            <th>Produto</th>
+                            <th>Qtd</th>
+                            <th>Unitário</th>
+                            <th>Total</th>
+                            <th style="width: 80px;">Remover</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelaItensEdit"></tbody>
+                </table>
+            </div>
+
+            <div class="crud-toolbar">
+                <button type="button" class="botao btn-salvar btn-auto" onclick="salvarEdicaoOrcamentoComItens()">Salvar Alterações</button>
+                <button type="button" class="botao botao-secundario btn-auto" onclick="cancelarEdicao()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalCadastro" class="modal-overlay">
+        <div class="modal-content" style="max-width: 700px;">
+            <form action="">
+                <h1 class="modal-titulo">Novo Orçamento</h1>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div class="input-group">
+                        <label for="selectClienteCad" class="crud-label">Cliente:</label>
+                        <select id="selectClienteCad" class="crud-input"></select>
+                    </div>
+                    <div class="input-group">
+                        <label for="dataOrcamentoCad" class="crud-label">Data do Orçamento:</label>
+                        <input type="date" id="dataOrcamentoCad" class="crud-input">
+                    </div>
+                    <div class="input-group">
+                        <label for="dataValidadeCad" class="crud-label">Data Validade:</label>
+                        <input type="date" id="dataValidadeCad" class="crud-input">
+                    </div>
+                    <div class="input-group">
+                        <label class="crud-label">Valor Total Geral:</label>
+                        <input type="text" id="valorTotalCad" class="crud-input input-readonly" readonly value="R$ 0,00" style="font-weight: bold;">
+                    </div>
+                </div>
+
+                <hr style="margin: 25px 0; border: 0; border-top: 1px solid #e2e8f0;">
+                <h3 style="margin-bottom: 15px; font-size: 18px;">Produtos do Orçamento</h3>
+                
+                <div style="display: flex; gap: 10px; align-items: flex-end; margin-bottom: 20px;">
+                    <div style="flex: 2;" class="input-group">
+                        <label for="selectProdutoCad" class="crud-label">Produto:</label>
+                        <select id="selectProdutoCad" class="crud-input" onchange="atualizarPrecoUnitarioCad()"></select>
+                    </div>
+                    <div style="flex: 1;" class="input-group">
+                        <label for="qtdProdutoCad" class="crud-label">Qtd:</label>
+                        <input type="number" id="qtdProdutoCad" class="crud-input" min="1" value="1">
+                    </div>
+                    <div style="flex: 1;" class="input-group">
+                        <label for="vlUnitarioCad" class="crud-label">Vl. Unitário:</label>
+                        <input type="number" id="vlUnitarioCad" class="crud-input" step="0.01" min="0">
+                    </div>
+                    
+                    <button type="button" class="btn-add-orcamento" onclick="adicionarItemNaListaCad()">+</button>
+                </div>
+
+                <div class="table-container" style="margin-bottom: 25px; box-shadow: none; border: 1px solid #e2e8f0;">
+                    <table class="crud-table">
+                        <thead>
+                            <tr>
+                                <th>Produto</th>
+                                <th>Qtd</th>
+                                <th>Unitário</th>
+                                <th>Total</th>
+                                <th style="width: 80px;">Remover</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabelaItensCad"></tbody>
+                    </table>
+                </div>
+                
+                <div class="modal-acoes" style="flex-direction: row; justify-content: flex-start; gap: 15px;">
+                    <button type="button" class="botao btn-primario btn-auto" onclick="salvarNovoOrcamentoComItens()">Cadastrar Orçamento</button>
+                    <button type="button" class="botao btn-fechar btn-auto" onclick="fecharModal()">Fechar</button>        
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="areaImpressao">
+        <div style="text-align: center; border-bottom: 2px solid #333; margin-bottom: 20px; padding-bottom: 10px;">
+            <h1 style="margin: 0; font-size: 24px;">ORÇAMENTO DE PRODUTOS</h1>
+            <p style="margin: 5px 0 0 0; font-size: 18px;">Número: <strong id="printOrcamentoId"></strong></p>
+        </div>
+
+        <div style="margin-bottom: 30px; font-size: 16px;">
+            <p><strong>Cliente:</strong> <span id="printCliente"></span></p>
+            <p><strong>Data de Emissão:</strong> <span id="printData"></span></p>
+            <p><strong>Válido até:</strong> <span id="printValidade"></span></p>
+        </div>
+
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px; font-size: 15px;">
+            <thead>
+                <tr style="background-color: #f1f5f9; border-bottom: 2px solid #cbd5e1;">
+                    <th style="padding: 10px; text-align: left; border: 1px solid #cbd5e1;">Produto</th>
+                    <th style="padding: 10px; text-align: center; border: 1px solid #cbd5e1;">Qtd</th>
+                    <th style="padding: 10px; text-align: right; border: 1px solid #cbd5e1;">Vl. Unitário</th>
+                    <th style="padding: 10px; text-align: right; border: 1px solid #cbd5e1;">Total</th>
+                </tr>
+            </thead>
+            <tbody id="printItens">
+                </tbody>
+        </table>
+
+        <div style="text-align: right; font-size: 20px; padding-top: 10px; border-top: 2px solid #333;">
+            <p style="margin: 0;"><strong>TOTAL GERAL: <span id="printTotalGeral"></span></strong></p>
+        </div>
+        
+        <div style="margin-top: 50px; text-align: center; font-size: 14px; color: #666;">
+            <p>Este orçamento é válido até a data informada acima.</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../javaScript/bancoDados.js"></script>
+    <script src="../javaScript/orcamento.js"></script>
+</body>
+</html>

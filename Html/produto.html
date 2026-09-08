@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/estilo.css">
+    <title>Gerenciar Produtos</title>
+</head>
+<body class="crud-body">
+
+    <div class="crud-container">
+        <h2 class="crud-titulo">Produtos Cadastrados</h2>
+        
+        <div class="crud-toolbar" style="display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; margin-bottom: 25px; width: 100%;">
+            
+            <div class="toolbar-botoes" style="display: flex; gap: 10px; align-items: center;">
+                <button type="button" class="botao btn-primario btn-auto" onclick="abrirModal()">+ Novo Produto</button>
+                <a href="menu.html" class="botao botao-secundario btn-auto">Voltar ao Menu</a>
+            </div>
+
+            <div class="toolbar-pesquisa" style="display: flex; gap: 15px; flex: 1; max-width: 550px; justify-content: flex-end;">
+                
+                <div class="input-group" style="flex: 1; margin-bottom: 0 !important; min-width: 100px;">
+                    <label for="buscaId" class="crud-label" style="margin-bottom: 5px; display: block;">Código:</label>
+                    <input type="number" id="buscaId" class="crud-input" placeholder="Ex: 1" oninput="filtrarProdutos()" style="width: 100%;">
+                </div>
+                
+                <div class="input-group" style="flex: 2; margin-bottom: 0 !important; min-width: 220px;">
+                    <label for="buscaDescricao" class="crud-label" style="margin-bottom: 5px; display: block;">Pesquisar Produto:</label>
+                    <input type="text" id="buscaDescricao" class="crud-input" placeholder="Digite o nome do produto..." oninput="filtrarProdutos()" style="width: 100%;">
+                </div>
+
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table class="crud-table">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Categoria</th>
+                    <th>Descrição</th>
+                    <th>Observação</th>
+                    <th>Preço unitário</th>
+                    <th>Data de cadastro</th>
+                    <th>Status</th>
+                    <th class="col-acoes">Ações</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaProdutos">
+                <tr>
+                    <td colspan="8" class="txt-center">Carregando produtos...</td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+
+        <div id="areaEdicao" class="edit-card" style="display: none;">
+            <h3>Editar Produto</h3>
+            
+            <input type="hidden" id="produtoId">
+            
+            <div class="input-group">
+                <label for="categoriaId" class="crud-label">Categoria do Produto:</label>
+                <select id="categoriaId" class="crud-input"></select>
+            </div>
+
+            <div class="input-group">
+                <label for="descProduto" class="crud-label">Descrição do Produto:</label>
+                <input type="text" id="descProduto" class="crud-input">
+            </div>
+
+            <div class="input-group">
+                <label for="valorProduto" class="crud-label">Preço unitário (R$):</label>
+                <input type="number" step="0.01" id="valorProduto" class="crud-input">
+            </div>
+
+            <div class="input-group">
+                <label for="statusProdutoEdicao" class="crud-label">Status:</label>
+                <select id="statusProdutoEdicao" class="crud-input">
+                    <option value="ATIVO">ATIVO</option>
+                    <option value="INATIVO">INATIVO</option>
+                </select>
+            </div>
+
+            <div class="crud-toolbar">
+                <button type="button" class="botao btn-salvar btn-auto" onclick="salvarEdicao()">Salvar Alterações</button>
+                <button type="button" class="botao botao-secundario btn-auto" onclick="cancelarEdicao()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalCadastro" class="modal-overlay">
+        <div class="modal-content">
+            <form action="">
+                <h1 class="modal-titulo">Novo Produto</h1>
+                <div>
+                    <div class="input-group">
+                        <label for="dsProduto" class="crud-label">Descrição / Nome do Produto:</label>
+                        <input type="text" id="dsProduto" class="crud-input" placeholder="Ex: CHAPA METALICA">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="categoriaProduto" class="crud-label">Categoria:</label>
+                        <select id="categoriaProduto" class="crud-input">
+                            <option value="">Carregando categorias...</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="vlVenda" class="crud-label">Valor Unitário (R$):</label>
+                        <input type="number" id="vlVenda" step="0.01" class="crud-input" placeholder="0.00">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="obsProduto" class="crud-label">Observação:</label>
+                        <input type="text" id="obsProduto" class="crud-input" placeholder="Ex: CHAPA GENERICA">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="statusProduto" class="crud-label">Status do Produto:</label>
+                        <select id="statusProduto" class="crud-input">
+                            <option value="ATIVO">ATIVO</option>
+                            <option value="INATIVO">INATIVO</option>
+                        </select>
+                    </div>
+                    
+                    <div class="modal-acoes">
+                        <button type="button" class="botao btn-primario" onclick="adicionarProduto()">Cadastrar Produto</button>
+                        <button type="button" class="botao btn-fechar" onclick="fecharModal()">Fechar</button>        
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../javaScript/bancoDados.js"></script>
+    <script src="../javaScript/produto.js"></script>
+</body>
+</html>

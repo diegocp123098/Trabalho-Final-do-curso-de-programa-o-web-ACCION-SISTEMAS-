@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/estilo.css">
+    <title>Menu</title>
+</head>
+<body class="menu-body">
+    <nav class="menu-card">
+        <h1 class="menu-titulo">MENU</h1>  
+        
+        <details class="menu-accordion">
+            <summary id="botaoCadastro" class="menu-summary">Acessar</summary>
+            <div id="submenu-cadastro" class="menu-submenu">
+                <a href="categoria.html" id="categoria" class="menu-link">Categoria</a>
+                <a href="produto.html" id="produtos" class="menu-link">Produtos</a>
+                <a href="cliente.html" id="usuarios" class="menu-link">Cliente</a>
+            </div>
+        </details>
+        
+        <details class="menu-accordion">
+            <summary id="manutencao" class="menu-summary">Manutenção</summary>
+            <div id="submenu-manutencao" class="menu-submenu">
+                <a href="usuario.html" id="gerenciamento-user" class="menu-link">Gerenciamento de Usuário</a>
+            </div>
+        </details>
+
+        <details class="menu-accordion">
+            <summary id="vendas" class="menu-summary">Vendas</summary>
+            <div id="submenu-vendas" class="menu-submenu">
+                <a href="orcamento.html" id="orcamento" class="menu-link">Orçamento</a>
+            </div>         
+        </details>
+
+        <a href="login.html" id="sair" class="botao btn-sair">Sair</a>
+    </nav>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../javaScript/bancoDados.js"></script>
+</body>
+</html>

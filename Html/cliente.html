@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/estilo.css">
+    <title>Gerenciar Clientes</title>
+</head>
+<body class="crud-body">
+
+    <div class="crud-container">
+        <h2 class="crud-titulo">Clientes Cadastrados</h2>
+        
+        <div class="crud-toolbar" style="display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; margin-bottom: 25px; width: 100%;">
+            
+            <div class="toolbar-botoes" style="display: flex; gap: 10px; align-items: center;">
+                <button type="button" class="botao btn-primario btn-auto" onclick="abrirModal()">+ Novo Cliente</button>
+                <a href="menu.html" class="botao botao-secundario btn-auto">Voltar ao Menu</a>
+            </div>
+
+            <div class="toolbar-pesquisa" style="display: flex; gap: 15px; flex: 1; max-width: 550px; justify-content: flex-end;">
+                
+                <div class="input-group" style="flex: 1; margin-bottom: 0 !important; min-width: 100px;">
+                    <label for="buscaId" class="crud-label" style="margin-bottom: 5px; display: block;">Código (ID):</label>
+                    <input type="number" id="buscaId" class="crud-input" placeholder="Ex: 1" oninput="filtrarClientes()" style="width: 100%;">
+                </div>
+                
+                <div class="input-group" style="flex: 2; margin-bottom: 0 !important; min-width: 220px;">
+                    <label for="buscaNome" class="crud-label" style="margin-bottom: 5px; display: block;">Pesquisar por Nome:</label>
+                    <input type="text" id="buscaNome" class="crud-input" placeholder="Digite o nome..." oninput="filtrarClientes()" style="width: 100%;">
+                </div>
+
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table class="crud-table">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Tipo</th>
+                    <th>CPF / CNPJ</th>
+                    <th>Nome</th>
+                    <th class="col-acoes">Ações</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaClientes">
+                <tr>
+                    <td colspan="5" class="txt-center">Carregando clientes...</td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+
+        <div id="areaEdicao" class="edit-card" style="display: none;">
+            <h3>Editar Dados</h3>
+            
+            <input type="hidden" id="clienteId">
+            
+            <div class="input-group">
+                <label for="nomeCliente" class="crud-label">Nome:</label>
+                <input type="text" id="nomeCliente" class="crud-input" placeholder="Nome do cliente">
+            </div>
+
+            <div class="input-group">
+                <label for="cpfCnpjCliente" class="crud-label">CPF / CNPJ:</label>
+                <input type="text" id="cpfCnpjCliente" class="crud-input" placeholder="Digite o documento" maxlength="18">
+            </div>
+
+            <div class="input-group">
+                <label for="tipoCliente" class="crud-label">Tipo:</label>
+                <select id="tipoCliente" class="crud-input">
+                    <option value="F">Física (PF)</option>
+                    <option value="J">Jurídica (PJ)</option>
+                </select>
+            </div>
+
+            <div class="crud-toolbar">
+                <button type="button" class="botao btn-salvar btn-auto" onclick="salvarEdicao()">Salvar Alterações</button>
+                <button type="button" class="botao botao-secundario btn-auto" onclick="cancelarEdicao()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalCadastro" class="modal-overlay">
+        <div class="modal-content">
+            <form action="">
+                <h1 class="modal-titulo">Novo Cliente</h1>
+                
+                <div>
+                    <div class="input-group">
+                        <label for="nomeClienteCad" class="crud-label">Nome:</label>
+                        <input type="text" id="nomeClienteCad" class="crud-input" placeholder="Nome do cliente">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="cpfCnpjClienteCad" class="crud-label">CPF / CNPJ:</label>
+                        <input type="text" id="cpfCnpjClienteCad" class="crud-input" placeholder="Digite o documento" maxlength="18">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="tipoClienteCad" class="crud-label">Tipo:</label>
+                        <select id="tipoClienteCad" class="crud-input">
+                            <option value="">Selecione o tipo...</option>
+                            <option value="F">Física (PF)</option>
+                            <option value="J">Jurídica (PJ)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="modal-acoes">
+                        <button type="button" class="botao btn-primario" onclick="adicionarCliente()">Cadastrar Cliente</button>
+                        <button type="button" class="botao btn-fechar" onclick="fecharModal()">Fechar</button>        
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../javaScript/bancoDados.js"></script>
+    <script src="../javaScript/cliente.js"></script>
+</body>
+</html>

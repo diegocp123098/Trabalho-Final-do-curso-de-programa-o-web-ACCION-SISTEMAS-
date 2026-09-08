@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pr-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link class="estilo-link" rel="stylesheet" href="../css/estilo.css">
+</head>
+<body class="login-body">
+    <form id="formLogin" onsubmit="fazerLogin(event)" class="login-card">
+        <div class="login-content">
+            <h1 class="login-titulo">Login</h1>
+            
+            <label for="usuario" class="login-label">Usuário:</label>
+            <input type="text" placeholder="Informe seu usuário" name="usuario" id="usuario" class="login-input" required>
+            
+            <label for="senha" class="login-label">Digite sua senha:</label>
+            <input type="password" placeholder="Digite sua senha" name="senha" id="senha" class="login-input" required>
+        </div>
+        <div class="login-acoes">
+            <button type="submit" class="botao btn-entrar" id="btnEntrar">Entrar</button>
+            <input type="reset" class="botao botao-secundario btn-cancelar" value="Cancelar" id="cancelar">
+            <a href="esqueci-senha.html" class="botao botao-secundario esqueceu" id="esquecer">Esqueceu a senha?</a>
+        </div>
+    </form>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../javaScript/bancoDados.js"></script>
+    <script src="../javaScript/login.js"></script>
+
+</body>
+</html>
